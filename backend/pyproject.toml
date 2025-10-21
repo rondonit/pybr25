@@ -1,0 +1,179 @@
+[project]
+name = "pybr25.core"
+dynamic = ["version"]
+description = "A new project using Plone 6."
+readme = "README.md"
+license = "GPL-2.0-only"
+requires-python = ">=3.12"
+authors = [
+    { name = "rondonit", email = "gabriel.cruz@ecomp.ufsm.br" },
+]
+keywords = [
+    "CMS",
+    "Plone",
+    "Python",
+]
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "Environment :: Web Environment",
+    "Framework :: Plone","Framework :: Plone :: 6.1",
+    "Framework :: Plone :: Addon",
+    "Operating System :: OS Independent",
+    "Programming Language :: Python","Programming Language :: Python :: 3.12",
+]
+dependencies = [
+    "Products.CMFPlone==6.1.3",
+    "plone.api",
+    "plone.restapi",
+    "plone.volto",
+]
+
+[dependency-groups]
+test = [
+    "horse-with-no-namespace",
+    "plone.app.testing",
+    "plone.restapi[test]",
+    "pytest",
+    "pytest-cov",
+    "pytest-plone>=1.0.0a2",
+]
+container = [
+    "plone.app.upgrade",
+    "psycopg2==2.9.10",
+    "relstorage==4.1.1",
+    "zeo==6.0.0",
+]
+
+
+[project.urls]
+Homepage = "https://github.com/rondonit/pybr25"
+Source = "https://github.com/rondonit/pybr25"
+Tracker = "https://github.com/rondonit/pybr25/issues"
+
+[project.entry-points."plone.autoinclude.plugin"]
+target = "plone"
+
+[tool.uv]
+managed = true
+default-groups = ["test"]
+constraint-dependencies = []
+
+[tool.hatch.version]
+path = "src/pybr25/core/__init__.py"
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.hatch.build]
+strict-naming = true
+
+[tool.hatch.build.targets.sdist]
+exclude = [
+  "/.github",
+]
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/pybr25"]
+
+[tool.towncrier]
+directory = "news/"
+filename = "CHANGELOG.md"
+start_string = "<!-- towncrier release notes start -->\n"
+title_format = "## {version} ({project_date})"
+template = "news/.changelog_template.jinja"
+issue_format = "[#{issue}](https://github.com/rondonit/pybr25/issues/{issue})"
+underlines = ["", "", ""]
+
+[[tool.towncrier.type]]
+directory = "breaking"
+name = "Breaking changes:"
+showcontent = true
+
+[[tool.towncrier.type]]
+directory = "feature"
+name = "New features:"
+showcontent = true
+
+[[tool.towncrier.type]]
+directory = "bugfix"
+name = "Bug fixes:"
+showcontent = true
+
+[[tool.towncrier.type]]
+directory = "internal"
+name = "Internal:"
+showcontent = true
+
+[[tool.towncrier.type]]
+directory = "documentation"
+name = "Documentation:"
+showcontent = true
+
+[[tool.towncrier.type]]
+directory = "tests"
+name = "Tests"
+showcontent = true
+
+[tool.ruff]
+target-version = "py312"
+line-length = 88
+fix = true
+lint.select = [
+    # flake8-2020
+    "YTT",
+    # flake8-bandit
+    "S",
+    # flake8-bugbear
+    "B",
+    # flake8-builtins
+    "A",
+    # flake8-comprehensions
+    "C4",
+    # flake8-debugger
+    "T10",
+    # flake8-simplify
+    "SIM",
+    # mccabe
+    "C90",
+    # pycodestyle
+    "E", "W",
+    # pyflakes
+    "F",
+    # pygrep-hooks
+    "PGH",
+    # pyupgrade
+    "UP",
+    # ruff
+    "RUF",
+]
+lint.ignore = [
+    # DoNotAssignLambda
+    "E731",
+]
+
+[tool.ruff.lint.isort]
+case-sensitive = false
+no-sections = true
+force-single-line = true
+from-first = true
+lines-after-imports = 2
+lines-between-types = 1
+order-by-type = false
+
+[tool.ruff.format]
+preview = true
+
+[tool.ruff.lint.per-file-ignores]
+"tests/*" = ["E501", "RUF001", "S101"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+
+[tool.coverage.run]
+source_pkgs = ["pybr25.core", "tests"]
+branch = true
+parallel = true
+omit = [
+  "src/pybr25/core/locales/*.py",
+]

@@ -1,0 +1,59 @@
+---
+stacks:
+
+  traefik:
+    enabled: true
+    stack_file: "etc/stacks/traefik.yml"
+    stack_name: "traefik"
+    main_folder: "/srv/traefik"
+    env_vars:
+      TRAEFIK_VERSION: "v2.11"
+      TRAEFIK_HOSTNAME: "traefik.pybr25-rondonit.tangrama.com.br"
+      TRAEFIK_EMAIL:  "{{ devops.email }}"
+      ### To create user:password pair, it's possible to use this command:
+      ### echo $(htpasswd -nb user password)
+      ### Defaults to admin:admin
+      TRAEFIK_BASIC_AUTH: "user:$apr1$M13lILVS$TqQMZMnUtV.1.qlm99Nam1"
+    folders:
+      - path: "/srv/traefik"
+        owner: "{{ users.default.name }}"
+        group: root
+        mode: "0755"
+
+  cronjob:
+    enabled: true
+    stack_file: "etc/stacks/cronjob.yml"
+    stack_name: "cronjob"
+    main_folder: "/srv/cronjob"
+    env_vars:
+      TZ: "UTC"
+      LOG_LEVEL: "info"
+      LOG_JSON: "false"
+      CRONJOB_VERSION: "1.14"
+    folders:
+      - path: "/srv/cronjob"
+        owner: "{{ users.default.name }}"
+        group: root
+        mode: "0755"
+
+  project:
+    enabled: true
+    stack_file: "../stacks/pybr25-rondonit.tangrama.com.br.yml"
+    stack_name: "pybr25-rondonit-tangrama-com-br"
+    main_folder: "/srv/pybr25-rondonit"
+    env_vars:
+      IMAGE_NAME_PREFIX: "ghcr.io/rondonit/tutorialpythonbrasil"
+      IMAGE_TAG: "latest"
+      STACK_NAME: "pybr25-rondonit-tangrama-com-br"
+      STACK_HOSTNAME: "pybr25-rondonit.tangrama.com.br"
+      STACK_PREFIX: "pybr25-rondonit"
+      CERTRESOLVER: "le"
+    folders:
+      - path: "/srv/pybr25-rondonit"
+        owner: "{{ users.default.name }}"
+        group: root
+        mode: "0755"
+      - path: "/srv/pybr25-rondonit/data"
+        owner: 500
+        group: root
+        mode: "0750"
