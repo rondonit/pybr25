@@ -4,7 +4,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2022-05-25 17:12+0000\n"
+"POT-Creation-Date: 2025-10-21 18:27+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -16,3 +16,19 @@ msgstr ""
 "Language-Name: English\n"
 "Preferred-Encodings: utf-8 latin1\n"
 "Domain: pybr25.core\n"
+
+#: pybr25/core/profiles.zcml:22
+msgid "Create example content to showcase the new website"
+msgstr ""
+
+#: pybr25/core/profiles.zcml:13
+msgid "Package to configure a new Tutorial Python Brasil site"
+msgstr ""
+
+#: pybr25/core/profiles.zcml:22
+msgid "Tutorial Python Brasil: Example content"
+msgstr ""
+
+#: pybr25/core/profiles.zcml:13
+msgid "Tutorial Python Brasil: Install"
+msgstr ""
